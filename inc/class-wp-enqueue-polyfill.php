@@ -1,6 +1,6 @@
 <?php
-if(!class_exists('Enqueue_Polyfill')){
-  class Enqueue_Polyfill{
+if(!class_exists('WP_Enqueue_Polyfill')){
+  class WP_Enqueue_Polyfill{
 
     private $model;
 
@@ -29,16 +29,16 @@ if(!class_exists('Enqueue_Polyfill')){
 
     private static function clear_options(){
       global $wpdb;
-      $options = $wpdb->get_col('SELECT option_name FROM ' . $wpdb->options . ' WHERE option_name LIKE \'%enqueue_polyfill%\'');
+      $options = $wpdb->get_col('SELECT option_name FROM ' . $wpdb->options . ' WHERE option_name LIKE \'%wp_enqueue_polyfill%\'');
       foreach($options as $option){
         delete_option($option);
       }
     }
 
     private function __construct(){
-      require_once(ENQUEUE_POLYFILL_PATH . 'inc/class-model-enqueue-polyfill.php');
+      require_once(WP_ENQUEUE_POLYFILL_PATH . 'inc/class-model-wp-enqueue-polyfill.php');
 
-      $this->model = new Model_Enqueue_Polyfill();
+      $this->model = new Model_WP_Enqueue_Polyfill();
 
       add_action('init', array($this, 'add_update_hook'));
       add_action('wp_enqueue_scripts', array($this, 'register_defaults'));
@@ -46,10 +46,10 @@ if(!class_exists('Enqueue_Polyfill')){
     }
 
     public function add_update_hook(){
-      if(get_option('enqueue_polyfill_version') !== PLUGIN_NAME_VERSION){
-        update_option('enqueue_polyfill_update_timestamp', time());
-        update_option('enqueue_polyfill_version', PLUGIN_NAME_VERSION);
-        do_action('enqueue_polyfill_updated');
+      if(get_option('wp_enqueue_polyfill_version') !== WP_ENQUEUE_POLYFILL_VERSION){
+        update_option('wp_enqueue_polyfill_update_timestamp', time());
+        update_option('wp_enqueue_polyfill_version', WP_ENQUEUE_POLYFILL_VERSION);
+        do_action('wp_enqueue_polyfill_updated');
       }
     }
 
@@ -62,15 +62,15 @@ if(!class_exists('Enqueue_Polyfill')){
     }
 
     public function print_polyfill_scripts(){
-      require_once(ENQUEUE_POLYFILL_PATH . 'inc/class-view-enqueue-polyfill.php');
+      require_once(WP_ENQUEUE_POLYFILL_PATH . 'inc/class-view-wp-enqueue-polyfill.php');
 
       $this->model->all_deps();
 
-      View_Enqueue_Polyfill::do_items($this->model);
+      View_WP_Enqueue_Polyfill::do_items($this->model);
     }
 
     public function register_defaults(){
-      $this->register_polyfill('addEventListener', ENQUEUE_POLYFILL_URL . 'js/event-listener.js', 'IE 8');
+      $this->register_polyfill('addEventListener', WP_ENQUEUE_POLYFILL_URL . 'js/event-listener.js', 'IE 8');
     }
 
   }

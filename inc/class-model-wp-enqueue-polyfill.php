@@ -1,6 +1,6 @@
 <?php
-if(!class_exists('Model_Enqueue_Polyfill')){
-  class Model_Enqueue_Polyfill{
+if(!class_exists('Model_WP_Enqueue_Polyfill')){
+  class Model_WP_Enqueue_Polyfill{
 
     public $registered = array();
     public $done = array();
