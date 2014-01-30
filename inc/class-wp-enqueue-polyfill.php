@@ -41,7 +41,6 @@ if(!class_exists('WP_Enqueue_Polyfill')){
       $this->model = new Model_WP_Enqueue_Polyfill();
 
       add_action('init', array($this, 'add_update_hook'));
-      add_action('wp_enqueue_scripts', array($this, 'register_defaults'));
       add_action('wp_print_scripts', array($this, 'print_polyfill_scripts'));
     }
 
@@ -67,10 +66,6 @@ if(!class_exists('WP_Enqueue_Polyfill')){
       $this->model->all_deps();
 
       View_WP_Enqueue_Polyfill::do_items($this->model);
-    }
-
-    public function register_defaults(){
-      $this->register_polyfill('addEventListener', WP_ENQUEUE_POLYFILL_URL . 'js/event-listener.js', 'IE 8');
     }
 
   }
