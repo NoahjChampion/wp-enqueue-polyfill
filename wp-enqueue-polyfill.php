@@ -13,7 +13,7 @@ define('WP_ENQUEUE_POLYFILL_URL', plugins_url('/', __FILE__));
 define('WP_ENQUEUE_POLYFILL_VERSION', '0.1.0');
 
 require_once(WP_ENQUEUE_POLYFILL_PATH . 'inc/class-wp-enqueue-polyfill.php');
-require_once(WP_ENQUEUE_POLYFILL_PATH . 'inc/class-functions-wp-enqueue-polyfill.php');
+require_once(WP_ENQUEUE_POLYFILL_PATH . 'inc/functions-wp-enqueue-polyfill.php');
 
 register_deactivation_hook(__FILE__, array('WP_Enqueue_Polyfill', 'deactivate'));
 
