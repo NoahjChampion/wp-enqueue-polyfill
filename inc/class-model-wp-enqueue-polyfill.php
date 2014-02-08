@@ -35,12 +35,14 @@ if(!class_exists('Model_WP_Enqueue_Polyfill')){
     public function all_deps(){
       global $wp_scripts;
 
-      foreach($wp_scripts->queue as $script){
-        foreach($wp_scripts->registered[$script]->deps as $dependency){
-          if(array_key_exists($dependency, $this->registered)){
-            $this->add_to_queue($dependency);
-            $wp_scripts->queue = array_merge(array_diff($wp_scripts->queue, array($dependency)));
-            $wp_scripts->done[] = $dependency;
+      if(!empty($wp_scripts->queue)){
+        foreach($wp_scripts->queue as $script){
+          foreach($wp_scripts->registered[$script]->deps as $dependency){
+            if(array_key_exists($dependency, $this->registered)){
+              $this->add_to_queue($dependency);
+              $wp_scripts->queue = array_merge(array_diff($wp_scripts->queue, array($dependency)));
+              $wp_scripts->done[] = $dependency;
+            }
           }
         }
       }
