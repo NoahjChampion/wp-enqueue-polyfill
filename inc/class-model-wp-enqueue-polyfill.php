@@ -25,10 +25,6 @@ if(!class_exists('Model_WP_Enqueue_Polyfill')){
         $this->register_polyfill($handle, $src, $condition, $version);
       }
 
-      if(!in_array($handle, $this->to_do)){
-        $this->to_do[] = $handle;
-      }
-
       $this->add_to_queue($handle);
     }
 
