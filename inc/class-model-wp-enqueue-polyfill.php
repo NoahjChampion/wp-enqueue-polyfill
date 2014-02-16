@@ -7,6 +7,7 @@ if(!class_exists('Model_WP_Enqueue_Polyfill')){
     public $queue = array();
 
     public function register_polyfill($handle, $src, $condition = 'IE', $version = false){
+      wp_register_script($handle, $src, array(), $version);
       $polyfill_data = array(
         'handle' => $handle,
         'src' => $src,
@@ -16,7 +17,6 @@ if(!class_exists('Model_WP_Enqueue_Polyfill')){
 
       if(!array_key_exists($handle, $this->registered)){
         $this->registered[$handle] = $polyfill_data;
-        wp_register_script($handle, $src, array(), $version);
       }
     }
 
