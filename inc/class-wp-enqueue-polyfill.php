@@ -46,9 +46,9 @@ if(!class_exists('WP_Enqueue_Polyfill')){
 
     public function add_update_hook(){
       if(get_option('wp_enqueue_polyfill_version') !== WP_ENQUEUE_POLYFILL_VERSION){
+        do_action('wp_enqueue_polyfill_updated');
         update_option('wp_enqueue_polyfill_update_timestamp', time());
         update_option('wp_enqueue_polyfill_version', WP_ENQUEUE_POLYFILL_VERSION);
-        do_action('wp_enqueue_polyfill_updated');
       }
     }
 
